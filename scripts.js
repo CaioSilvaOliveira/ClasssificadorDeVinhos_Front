@@ -54,14 +54,13 @@ const postItem = async (inputName, inputBirth, inputGender, inputResponsibleName
   Função para criar um botão close para cada item da lista
   --------------------------------------------------------------------------------------
 */
-const insertButton = (parent) => {
+const insertCloseButton = (parent) => {
   let span = document.createElement("span");
   let txt = document.createTextNode("\u00D7");
   span.className = "close";
   span.appendChild(txt);
   parent.appendChild(span);
 }
-
 
 /*
   --------------------------------------------------------------------------------------
@@ -136,11 +135,90 @@ const insertList = (inputName, inputBirth, inputGender, inputResponsibleName) =>
     var cel = row.insertCell(i);
     cel.textContent = item[i];
   }
-  insertButton(row.insertCell(-1))
+  insertCloseButton(row.insertCell(-1))
   document.getElementById("newName").value = "";
   document.getElementById("newBirth").value = "";
   document.getElementById("newGender").value = "";
   document.getElementById("newResponsibleName").value = "";
 
   removeElement()
+}
+
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para obter informações de um aluno do servidor via requisição GET
+  --------------------------------------------------------------------------------------
+*/
+const getItem = () => {
+  let inputName = document.getElementById("newName").value;
+  
+  let url = 'http://127.0.0.1:5000/aluno?nome=' + inputName;
+  fetch(url, {
+    method: 'get',
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById("newBirth").value = data.data_nascimento
+      document.getElementById("newGender").value = data.sexo
+      document.getElementById("newResponsibleName").value = data.nome_responsavel
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
+
+
+/*
+  --------------------------------------------------------------------------------------
+  Função para editar informações de um aluno do servidor via requisição PUT
+  --------------------------------------------------------------------------------------
+*/
+const editItem = () => {
+  let inputName = document.getElementById("newName").value;
+  let inputBirth = document.getElementById("newBirth").value;
+  let inputGender = document.getElementById("newGender").value;
+  let inputResponsibleName = document.getElementById("newResponsibleName").value;
+
+  if (inputName === '' ||inputBirth === '' ||inputGender === '' ||inputResponsibleName === '' ) {
+    alert("É necessário preencher todos os campos!");
+  } else {
+    const formData = new FormData();
+    formData.append('nome', inputBirth);
+    formData.append('data_nascimento', inputBirth);
+    formData.append('sexo', inputGender);
+    formData.append('nome_responsavel', inputResponsibleName);
+
+    let url = `http://127.0.0.1:5000/aluno/${inputName}`;
+    fetch(url, {
+      method: 'put',
+      body: formData
+    })
+      .then((response) => response.json())
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    
+    document.getElementById("newName").value = "";
+    document.getElementById("newBirth").value = "";
+    document.getElementById("newGender").value = "";
+    document.getElementById("newResponsibleName").value = "";
+
+    removeElement()
+    alert("Aluno atualizado!")
+  }
+}
+
+/*
+  --------------------------------------------------------------------------------------
+  Função que utiliza uma API EXTERNA para exportar a tabela em formato xlsx
+  --------------------------------------------------------------------------------------
+*/
+const exportSheet = () => {
+  document.getElementById("sheetjsexport").addEventListener('click', function() {
+    /* Create worksheet from HTML DOM TABLE */
+    var wb = XLSX.utils.table_to_book(document.getElementById("myTable"));
+    /* Export to file (start a download) */
+    XLSX.writeFile(wb, "SheetJSTable.xlsx");
+  });
 }

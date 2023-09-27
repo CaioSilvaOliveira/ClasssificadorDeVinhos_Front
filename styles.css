@@ -93,6 +93,7 @@ header {
     cursor: pointer;
     transition: 0.3s;
     border-radius: 2px;
+    border: 1px solid white;
 }
 
 .addBtn:hover {
@@ -109,6 +110,11 @@ header {
 
 .close:hover {
     color: #f44336;
+    font-weight: bolder;
+}
+
+.edit:hover {
+    color: #f4ee36;
     font-weight: bolder;
 }
 
@@ -139,3 +145,10 @@ tr:nth-child(odd){
     background: rgb(255, 79, 4);
 }
 
+h3{
+    color: green;
+    font-size: 17px;
+    padding: 12px 10px 0px 10px;
+    border: 0px;
+    margin: 30px 10px 0px 30px;
+}

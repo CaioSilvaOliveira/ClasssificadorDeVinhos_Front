@@ -22,13 +22,16 @@
         </div>
     </header>
 
-     <!-- Opções para adicionar um novo item -->
+     <!-- Opções para adicionar, consultar ou editar um aluno -->
+    <h3>Adicione, consulte ou edite um aluno:</h3>
     <section class="newItem">
         <input type="text" id="newName" placeholder="Nome do Aluno:">
         <input type="text" id="newBirth" placeholder="Data de Nascimento:">
         <input type="text" id="newGender" placeholder="Sexo:">
         <input type="text" id="newResponsibleName" placeholder="Nome do Responsável:">
         <span onclick="newItem()" class="addBtn">Adicionar</span>
+        <span onclick="getItem()" class="addBtn">Consultar</span>
+        <span onclick="editItem()" class="addBtn">Editar</span>
     </section>
 
     <!-- Tabela com items existentes -->
@@ -43,8 +46,10 @@
             </tr>
         </table>
     </section>
+    <button onclick="exportSheet()" id="sheetjsexport"><b>Export as XLSX</b></button>
 
     <script src="scripts.js"></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
 </body>
 
 </html>
