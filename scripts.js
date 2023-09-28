@@ -205,6 +205,7 @@ const editItem = () => {
     document.getElementById("newResponsibleName").value = "";
 
     removeElement()
+    location.reload()
     alert("Aluno atualizado!")
   }
 }
