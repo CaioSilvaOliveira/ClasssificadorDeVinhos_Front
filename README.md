@@ -3,6 +3,10 @@
 Este pequeno projeto faz parte do material extra da Disciplina **Engenharia de Sistemas de Software Inteligentes** 
 
 ---
+## Vídeo de explicação da plataforma
+
+https://youtu.be/D9f0CufKflI
+
 ## Como executar em modo de desenvolvimento
 
 Basta fazer o download do projeto e abrir o arquivo index.html no seu browser.
