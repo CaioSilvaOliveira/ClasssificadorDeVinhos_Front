@@ -2,56 +2,151 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>Wine Tasting</title>
     <link rel="stylesheet" href="styles.css">
-
-    <title>Projeto</title>
 </head>
-
 <body>
-     <!-- Cabeçalho de informações do sistema -->
-    <header>
-        <div class="title">
-            <h2>Inscrição da Colônia de Férias</h2>
+    <div class="main-container">
+        <div class="left-panel">
+            <h1>WINE</h1>
+            <h2>TASTING</h2>
+            <p class="description">
+                Descubra a classe do seu vinho com base em suas características químicas. 
+                Nosso sistema analisa 13 atributos diferentes para classificar vinhos italianos 
+                em três categorias distintas.
+            </p>
+            <button id="readMoreBtn" class="read-more">SAIBA MAIS</button>
         </div>
-        <div class="banner">
-            <img src="img/colonia.jpg"
-                alt="Crianças Brincando">
+
+        <div class="right-panel">
+            <form id="wineForm">
+                <h3>DESCUBRA A CLASSE DO SEU VINHO</h3>
+                
+                <div class="form-columns">
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="alcohol">Álcool (%):</label>
+                            <input type="number" step="0.01" id="alcohol" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="malic_acid">Ácido Málico (g/L):</label>
+                            <input type="number" step="0.01" id="malic_acid" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ash">Cinzas (g/L):</label>
+                            <input type="number" step="0.01" id="ash" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="alcalinity">Alcalinidade das Cinzas:</label>
+                            <input type="number" step="0.01" id="alcalinity" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="magnesium">Magnésio (mg/L):</label>
+                            <input type="number" step="1" id="magnesium" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phenols">Fenólicos Totais:</label>
+                            <input type="number" step="0.01" id="phenols" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-column">
+                        <div class="form-group">
+                            <label for="flavanoids">Flavonoides:</label>
+                            <input type="number" step="0.01" id="flavanoids" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="nonflavanoids">Fenólicos Não-Flavonoides:</label>
+                            <input type="number" step="0.01" id="nonflavanoids" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="proanthocyanins">Proantocianidinas:</label>
+                            <input type="number" step="0.01" id="proanthocyanins" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="color">Intensidade da Cor:</label>
+                            <input type="number" step="0.01" id="color" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="hue">Matiz:</label>
+                            <input type="number" step="0.01" id="hue" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="od">OD280/OD315:</label>
+                            <input type="number" step="0.01" id="od" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="proline">Prolina (mg/L):</label>
+                            <input type="number" step="1" id="proline" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn">ANALISAR VINHO</button>
+            </form>
+
+            <div id="result" class="result-container hidden">
+                <h4 id="predictionText"></h4>
+                <p id="wineDescription"></p>
+                <button id="newAnalysisBtn" class="read-more" onclick="resetForm()">NOVA ANÁLISE</button>
+            </div>
         </div>
-    </header>
-
-     <!-- Opções para adicionar, consultar ou editar um aluno -->
-    <h3>Adicione, consulte ou edite um aluno:</h3>
-    <section class="newItem">
-        <input type="text" id="newName" placeholder="Nome do Aluno:">
-        <input type="text" id="newBirth" placeholder="Data de Nascimento:">
-        <input type="text" id="newGender" placeholder="Sexo:">
-        <input type="text" id="newResponsibleName" placeholder="Nome do Responsável:">
-        <span onclick="newItem()" class="addBtn">Adicionar</span>
-        <span onclick="getItem()" class="addBtn">Consultar</span>
-        <span onclick="editItem()" class="addBtn">Editar</span>
-    </section>
-
-    <!-- Tabela com items existentes -->
-    <section class="items">
-        <table id="myTable">
-            <tr>
-                <th>Nome</th>
-                <th>Data de Nascimento</th>
-                <th>Sexo</th>
-                <th>Nome do Responsável</th>
-                <th id="delete"><img src="https://cdn-icons-png.flaticon.com/512/126/126468.png" width="15px" height="15px"></th>
-            </tr>
-        </table>
-    </section>
-    <button onclick="exportSheet()" id="sheetjsexport"><b>Export as XLSX</b></button>
-
+    </div>
+    <div id="documentationPopup" class="popup-container hidden">
+        <div class="popup-content">
+            <button class="close-btn" onclick="closePopup()">&times;</button>
+            <h2>Wine Dataset</h2>
+            <div class="popup-body">
+                <div class="popup-columns">
+                    <div class="popup-column">
+                        <h3>Atributos Físico-Químicos</h3>
+                        <ul>
+                            <li><strong>Alcohol</strong>: Teor alcoólico (% vol)</li>
+                            <li><strong>Malic acid</strong>: Ácido málico (g/L)</li>
+                            <li><strong>Ash</strong>: Conteúdo de cinzas (g/L)</li>
+                            <li><strong>Alcalinity_of_ash</strong>: Alcalinidade das cinzas</li>
+                            <li><strong>Magnesium</strong>: Mg (mg/L)</li>
+                            <li><strong>Total_phenols</strong>: Fenólicos totais</li>
+                            <li><strong>Flavanoids</strong>: Flavonoides</li>
+                        </ul>
+                    </div>
+                    <div class="popup-column">
+                        <h3>Outros Atributos</h3>
+                        <ul>
+                            <li><strong>Nonflavanoid_phenols</strong>: Fenólicos não flavonoides</li>
+                            <li><strong>Proanthocyanins</strong>: Proantocianidinas</li>
+                            <li><strong>Color_intensity</strong>: Intensidade da cor</li>
+                            <li><strong>Hue</strong>: Matiz (tonalidade)</li>
+                            <li><strong>OD280/OD315</strong>: Relação de absorbância</li>
+                            <li><strong>Proline</strong>: Prolina (mg/L)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <h3>Classes de Vinho</h3>
+                <ol>
+                    <li><strong>Classe 0</strong>: Vinhos do tipo Barolo</li>
+                    <li><strong>Classe 1</strong>: Vinhos do tipo Grignolino</li>
+                    <li><strong>Classe 2</strong>: Vinhos do tipo Barbera</li>
+                </ol>
+                
+                <h3>Origem dos Dados</h3>
+                <p>Dataset criado por Forina et al. (1991), contendo análises químicas de vinhos da região do Piemonte, Itália.</p>
+            </div>
+        </div>
+    </div>
     <script src="scripts.js"></script>
-    <script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
 </body>
-
 </html>
-
-

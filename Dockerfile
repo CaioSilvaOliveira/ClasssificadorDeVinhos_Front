@@ -1,4 +1,3 @@
-# Use uma imagem base com um servidor web (por exemplo, Nginx)
 # O nginx é um servidor leve e de código fonte aberto para realizar requisições HTTP
 FROM nginx:latest
 
